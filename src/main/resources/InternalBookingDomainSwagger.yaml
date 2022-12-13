@@ -1,0 +1,219 @@
+openapi: 3.0.0
+info:
+  description: "Internal Booking"
+  version: "1.0.1"
+  title: "Swagger Internal Booking "
+servers:
+  - url: http://localhost:8080/internal-domain/
+  - url: https://localhost:8080/internal-domain/
+
+paths:
+  /v1/trade/product/list:
+    get:
+      tags:
+        - "Product"
+      summary: "Get List of product"
+      description: ""
+      operationId: "getProducts"
+      responses:
+        "200":
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Products"
+  /v1/trade/product/create:
+    post:
+      tags:
+        - "Product"
+      summary: "Create product"
+      description: ""
+      operationId: "createProduct"
+      requestBody:
+        description: Body for create trade
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateProduct"
+      responses:
+        "200":
+          description: "successful operation"
+    get:
+      tags:
+        - "Broker"
+      summary: "Get List of broker"
+      description: ""
+      operationId: "getBrokers"
+      responses:
+        "200":
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Brokers"
+  /v1/trade/create:
+    post:
+      tags:
+        - "Trade"
+      summary: "Post create trade"
+      description: ""
+      operationId: "postCreateTrade"
+      requestBody:
+        description: Body for create trade
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateTradeRequest"
+      responses:
+        "200":
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CreateTradeResponse"
+  /v1/trade/report:
+    post:
+      tags:
+        - "Trade"
+      summary: "Post generate trade report"
+      description: ""
+      operationId: "postGenerateReport"
+      requestBody:
+        description: Body for generate trade report
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GenerateReportRequest"
+      responses:
+        "201":
+          description: "successful operation"
+
+
+components:
+  schemas:
+    CreateProductRequest:
+      type: object
+      properties:
+        product:
+          $ref: "#/components/schemas/CreateProduct"
+    GetProductsResponse:
+      type: object
+      properties:
+        stories:
+          $ref: "#/components/schemas/Products"
+    Products:
+      type: array
+      items:
+        $ref: "#/components/schemas/Product"
+    Product:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+    CreateProduct:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+    Brokers:
+      type: array
+      items:
+        $ref: "#/components/schemas/Broker"
+    Broker:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+    CreateTradeRequest:
+      type: object
+      properties:
+        productId:
+          type: string
+          example: "P1"
+        tradeDate:
+          type: string
+        isBuy:
+          type: boolean
+        qty:
+          type: integer
+          example: 10000
+        price:
+          type: number
+          example: 1.067591
+        brokerId:
+          type: string
+          example: "B1"
+        pairs:
+          type: string
+          example: AUD/NZD
+        expiryDate:
+          type: string
+          example: "2023-12-08T07:00:00.000Z"
+    CreateTradeResponse:
+      type: object
+      properties:
+        tradeId:
+          type: string
+          example: "T1"
+    GenerateReportRequest:
+      type: object
+      properties:
+        productId:
+          type: string
+          example: "P1"
+        brokerId:
+          type: string
+        startDate:
+          type: string
+          example: "2023-12-08T07:00:00.000Z"
+        endDate:
+          type: string
+          example: "2023-12-08T07:00:00.000Z"
+    GenerateReportGenericRequest:
+      type: array
+      items:
+        $ref: "#/components/schemas/Generic"
+    Generic:
+      type: object
+      properties:
+        key:
+          type: string
+          example: productId
+        value:
+          type: string
+          example: p1
+    Report:
+      type: object
+      properties:
+        tradeRef:
+          type: string
+          example: T-FWD-1
+        productId:
+          type: string
+          example: "1"
+        productName:
+          type: string
+          example: AUDNZD FRD Exp14Jul2021
+        tradeDate:
+          type: string
+          example: 20200408
+        qty:
+          type: string
+          example: 100000
+        buySell:
+          type: string
+          example: B
+        price:
+          type: string
+          example: 1.067591

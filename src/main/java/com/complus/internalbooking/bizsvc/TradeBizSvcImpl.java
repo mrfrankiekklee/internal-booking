@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityNotFoundException;
 import java.io.*;
 import java.nio.file.Files;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -48,6 +49,7 @@ public class TradeBizSvcImpl implements TradeBizSvc{
                 request.getQty(),
                 request.isIsBuy(),
                 broker,
+                request.getPairs().toString(),
                 request.getPrice().toString(),
                 request.getExpiryDate()
                 );
@@ -62,14 +64,15 @@ public class TradeBizSvcImpl implements TradeBizSvc{
 
         List<Trade> trades = tradeEntityRepository.findAll();
         List<String[]> dataLines = new ArrayList<>();
+        dataLines.add(new String[]{"tradeRef","productId", "productName", "tradeDate", "qty", "buySell", "price"});
         for(Trade trade : trades){
             dataLines.add(new String[]{
                     trade.getRef(),
                     trade.getProduct().getId(),
-                    trade.getProduct().getName(),
-                    trade.getTradeDate(),
+                    trade.getPairs() + " " + trade.getProduct().getName() + " Exp" + trade.getExpiry(),
+                    Integer.toString(OffsetDateTime.parse (trade.getTradeDate()).getYear())+OffsetDateTime.parse (trade.getTradeDate()).getMonthValue()+OffsetDateTime.parse (trade.getTradeDate()).getDayOfMonth(),
                     trade.getQty().toString(),
-                    trade.getBuy().toString(),
+                    trade.getBuy() ? "B" : "S",
                     trade.getPrice()
             });
         }
@@ -84,7 +87,7 @@ public class TradeBizSvcImpl implements TradeBizSvc{
     }
 
     public void outputCsv(List<String[]> dataLines) throws IOException {
-        File csvOutputFile = new File("../testcsv");
+        File csvOutputFile = new File("test.csv");
         try (PrintWriter pw = new PrintWriter(csvOutputFile)) {
             dataLines.stream()
                     .map(this::convertToCSV)

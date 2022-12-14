@@ -10,4 +10,11 @@ class InternalBookingApplicationTests {
 	void contextLoads() {
 	}
 
+	@Test
+	void createTradeRecord() {
+		// set up user
+		Throwable exception = assertThrows(IllegalArgumentException.class, () -> user.setAge("23"));
+		assertEquals("Age must be an Integer.", exception.getMessage());
+	}
+
 }

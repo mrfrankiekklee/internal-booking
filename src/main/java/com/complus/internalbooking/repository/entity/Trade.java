@@ -2,7 +2,6 @@ package com.complus.internalbooking.repository.entity;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -12,16 +11,14 @@ import java.util.Date;
 @Table(name="trade")
 public class Trade implements Serializable {
     public Trade(){}
-    public Trade(Product product, String ref, String tradeDate, Integer qty, Boolean isBuy, Broker broker, String pairs, String price, String expiry) {
+    public Trade(Product product, String ref, String tradeDate, Integer qty, Boolean isBuy, Broker broker, String price) {
         this.product = product;
         this.ref = ref;
         this.tradeDate = tradeDate;
         this.qty = qty;
         this.isBuy = isBuy;
         this.broker = broker;
-        this.pairs = pairs;
         this.price = price;
-        this.expiry = expiry;
     }
 
     @Id
@@ -50,12 +47,6 @@ public class Trade implements Serializable {
 
     @Column(name = "price")
     private String price;
-
-    @Column(name = "pairs")
-    private String pairs;
-
-    @Column(name = "expiry")
-    private String expiry;
 
     @CreationTimestamp
     @Column(name = "created")
@@ -125,22 +116,6 @@ public class Trade implements Serializable {
         this.price = price;
     }
 
-    public String getPairs() {
-        return pairs;
-    }
-
-    public void setPairs(String pairs) {
-        this.pairs = pairs;
-    }
-
-    public String getExpiry() {
-        return expiry;
-    }
-
-    public void setExpiry(String expiry) {
-        this.expiry = expiry;
-    }
-
     public Date getCreated() {
         return created;
     }
@@ -160,7 +135,6 @@ public class Trade implements Serializable {
                 ", isBuy=" + isBuy +
                 ", broker=" + broker +
                 ", price='" + price + '\'' +
-                ", expiry='" + expiry + '\'' +
                 ", created=" + created +
                 '}';
     }

@@ -16,7 +16,8 @@ import javax.validation.constraints.*;
 
 public class CreateTradeRequest   {
   @JsonProperty("productId")
-  private String productId = null;
+  @NotEmpty
+  private String productId;
 
   @JsonProperty("tradeDate")
   private String tradeDate = null;
@@ -31,6 +32,7 @@ public class CreateTradeRequest   {
   private BigDecimal price = null;
 
   @JsonProperty("brokerId")
+  @NotEmpty
   private String brokerId = null;
 
   @JsonProperty("pairs")

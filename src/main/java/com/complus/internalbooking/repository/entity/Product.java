@@ -4,6 +4,8 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity(name ="Product")
 @Table(name = "product")
@@ -19,8 +21,23 @@ public class Product implements Serializable {
     @Column(name = "type")
     private String type;
 
+    @Column(name = "sub_type")
+    private String subType;
+
     @Column(name = "created")
     private String created;
+
+    @OneToMany(mappedBy = "product")
+    private Set<BrokerProduct> brokerProductSet = new HashSet<>();;
+    public Product(){}
+
+    public Product(String id, String name, String type, String subType, String created) {
+        this.id = id;
+        this.name = name;
+        this.type = type;
+        this.subType = subType;
+        this.created = created;
+    }
 
     public String getId() {
         return id;
@@ -46,6 +63,18 @@ public class Product implements Serializable {
         this.type = type;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getSubType() {
+        return subType;
+    }
+
+    public void setSubType(String subType) {
+        this.subType = subType;
+    }
+
     public String getCreated() {
         return created;
     }
@@ -53,4 +82,6 @@ public class Product implements Serializable {
     public void setCreated(String created) {
         this.created = created;
     }
+
+
 }

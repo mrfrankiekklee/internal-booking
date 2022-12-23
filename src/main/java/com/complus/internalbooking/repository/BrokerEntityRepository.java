@@ -11,6 +11,6 @@ import java.util.Optional;
 public interface BrokerEntityRepository extends JpaRepository<Broker,String> {
 
     Optional<Broker> findById(String id);
-
+    Broker save(Broker broker);
 
 }

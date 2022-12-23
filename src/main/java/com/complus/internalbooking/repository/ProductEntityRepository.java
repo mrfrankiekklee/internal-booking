@@ -10,5 +10,6 @@ import java.util.Optional;
 public interface ProductEntityRepository extends JpaRepository<Product,String> {
 
     Optional<Product> findById(String id);
+    Product save(Product product);
 
 }

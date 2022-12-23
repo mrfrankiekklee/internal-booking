@@ -16,16 +16,16 @@ import javax.validation.constraints.*;
 
 public class GenerateReportRequest   {
   @JsonProperty("productId")
-  private String productId = null;
+  @NotEmpty
+  private String productId;
 
   @JsonProperty("brokerId")
-  private String brokerId = null;
+  @NotEmpty
+  private String brokerId ;
 
-  @JsonProperty("startDate")
-  private String startDate = null;
+  @JsonProperty("tradeDate")
+  private String tradeDate = null;
 
-  @JsonProperty("endDate")
-  private String endDate = null;
 
   public GenerateReportRequest productId(String productId) {
     this.productId = productId;
@@ -63,8 +63,8 @@ public class GenerateReportRequest   {
     this.brokerId = brokerId;
   }
 
-  public GenerateReportRequest startDate(String startDate) {
-    this.startDate = startDate;
+  public GenerateReportRequest tradeDate(String startDate) {
+    this.tradeDate = tradeDate;
     return this;
   }
 
@@ -73,30 +73,12 @@ public class GenerateReportRequest   {
    * @return startDate
    **/
 
-    public String getStartDate() {
-    return startDate;
+    public String getTradeDate() {
+    return tradeDate;
   }
 
-  public void setStartDate(String startDate) {
-    this.startDate = startDate;
-  }
-
-  public GenerateReportRequest endDate(String endDate) {
-    this.endDate = endDate;
-    return this;
-  }
-
-  /**
-   * Get endDate
-   * @return endDate
-   **/
-
-    public String getEndDate() {
-    return endDate;
-  }
-
-  public void setEndDate(String endDate) {
-    this.endDate = endDate;
+  public void setTradeDate(String tradeDate) {
+    this.tradeDate = tradeDate;
   }
 
 
@@ -111,13 +93,12 @@ public class GenerateReportRequest   {
     GenerateReportRequest generateReportRequest = (GenerateReportRequest) o;
     return Objects.equals(this.productId, generateReportRequest.productId) &&
         Objects.equals(this.brokerId, generateReportRequest.brokerId) &&
-        Objects.equals(this.startDate, generateReportRequest.startDate) &&
-        Objects.equals(this.endDate, generateReportRequest.endDate);
+        Objects.equals(this.tradeDate, generateReportRequest.tradeDate);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(productId, brokerId, startDate, endDate);
+    return Objects.hash(productId, brokerId, tradeDate);
   }
 
   @Override
@@ -127,8 +108,7 @@ public class GenerateReportRequest   {
     
     sb.append("    productId: ").append(toIndentedString(productId)).append("\n");
     sb.append("    brokerId: ").append(toIndentedString(brokerId)).append("\n");
-    sb.append("    startDate: ").append(toIndentedString(startDate)).append("\n");
-    sb.append("    endDate: ").append(toIndentedString(endDate)).append("\n");
+    sb.append("    tradeDate: ").append(toIndentedString(tradeDate)).append("\n");
     sb.append("}");
     return sb.toString();
   }

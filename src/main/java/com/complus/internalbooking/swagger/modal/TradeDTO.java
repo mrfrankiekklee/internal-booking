@@ -49,6 +49,6 @@ public class TradeDTO {
     }
 
     public String[] toStringArray() {
-        return new String[]{this.tradeRef, this.productId, this.productName, this.tradeDate, this.qty, this.qty, this.price};
+        return new String[]{this.tradeRef, this.productId, this.productName, this.tradeDate, this.qty, this.buySell, this.price};
     }
 }

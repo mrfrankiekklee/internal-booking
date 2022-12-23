@@ -1,6 +1,7 @@
 package com.complus.internalbooking.bizsvc;
 
 import com.complus.internalbooking.config.Constants;
+import com.complus.internalbooking.config.ErrorConstants;
 import com.complus.internalbooking.repository.BrokerEntityRepository;
 import com.complus.internalbooking.repository.ProductEntityRepository;
 import com.complus.internalbooking.repository.TradeEntityRepository;
@@ -10,7 +11,6 @@ import com.complus.internalbooking.repository.entity.Product;
 import com.complus.internalbooking.repository.entity.Trade;
 import com.complus.internalbooking.swagger.modal.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -18,7 +18,6 @@ import java.io.*;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -68,25 +67,22 @@ public class TradeBizSvcImpl implements TradeBizSvc{
 
 
         List<SearchCriteria> criteriaList = new ArrayList<>();
-        SearchCriteria s1 = new SearchCriteria("productId", request.getProductId());
-        SearchCriteria s2 = new SearchCriteria("brokerId", request.getBrokerId());
-        criteriaList.add(s1);
-        criteriaList.add(s2);
+        criteriaList.add(new SearchCriteria("type", request.getProductType()));
+        criteriaList.add(new SearchCriteria("subType", request.getProductSubType()));
+        criteriaList.add(new SearchCriteria("brokerId", request.getBrokerId()));
         if(request.getTradeDate() != null){
-            SearchCriteria s3 = new SearchCriteria("tradeDate", request.getTradeDate());
-            criteriaList.add(s3);
+            criteriaList.add(new SearchCriteria("tradeDate", request.getTradeDate()));
         }
-
-        Product product = productEntityRepository.findById(request.getProductId())
-                .orElseThrow(()-> new EntityNotFoundException("Product Not Found"));
 
         TradeSpecification spec = new TradeSpecification(criteriaList);
 
         List<Trade> trades = tradeEntityRepository.findAll(spec);
 
-        String csvName = product.getSubType() + "_" +
-                product.getName() + "_" +
-                dateFormatter(OffsetDateTime.parse(request.getTradeDate())) +".csv";
+        String csvName = request.getProductSubType() + "_" +
+                request.getProductType() +
+                (request.getTradeDate() != null ?
+                        "_" + dateFormatter(OffsetDateTime.parse(request.getTradeDate()))
+                        : "") + ".csv";
 
         List<String[]> dataLines = new ArrayList<>();
         dataLines.add(Constants.productList);

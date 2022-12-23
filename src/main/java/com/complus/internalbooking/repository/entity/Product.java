@@ -63,10 +63,6 @@ public class Product implements Serializable {
         this.type = type;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public String getSubType() {
         return subType;
     }

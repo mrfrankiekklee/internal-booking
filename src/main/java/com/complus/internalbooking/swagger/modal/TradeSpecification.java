@@ -36,9 +36,6 @@ public class TradeSpecification implements Specification<Trade> {
                     case "subType":
                         predicateList.add(builder.equal(productRootPath.get("subType"), criteria.getValue().toString()));
                         break;
-                    case "productId":
-                        predicateList.add(builder.equal(productRootPath.get("id"), criteria.getValue().toString()));
-                        break;
                     case "brokerId":
                         predicateList.add(builder.equal(brokerRootPath.get("id"), criteria.getValue().toString()));
                         break;

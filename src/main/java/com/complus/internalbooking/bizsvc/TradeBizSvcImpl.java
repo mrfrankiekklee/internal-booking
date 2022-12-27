@@ -84,7 +84,7 @@ public class TradeBizSvcImpl implements TradeBizSvc{
         List<Trade> trades = tradeEntityRepository.findAll(spec);
 
         String csvName = request.getProductSubType() + "_" +
-                request.getProductType() +
+                request.getProductType() + "_" +
                 request.getBrokerId() +
                 (request.getTradeDate() != null ?
                         "_" + dateFormatter(OffsetDateTime.parse(request.getTradeDate()))

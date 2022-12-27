@@ -23,7 +23,7 @@ Thoughts
 - 
 Request Body
 - Could enhance to Array of Object with Key, Value and operator for dynamic filter, done by criteria API and Specification. But no required for current requirement.
-- For productType and productSubType, there could be another table to store the productType, and filter by productTypeId. But split into two String query at this stage.
+- For productType and productSubType, there could be another table to store the productType, and filter by productTypeId. But split into two String query at this stage, in case there is feature to generate report at a higher level, e.g. Swap, Bond
 -
 Report
 - Extended report format could be some child class inherits TradeDTO.  

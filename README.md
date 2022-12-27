@@ -2,6 +2,9 @@ Internal booking application
 -
 Overview
 
+pre-condition: 
+Java 11, Maven
+
 This is an application for user to create trade and generate trade report via API request.
 
 1. - Start the application on your desired IDE (Developed on Intellij) after Maven Reload Project

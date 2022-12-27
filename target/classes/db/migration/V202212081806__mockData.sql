@@ -6,10 +6,10 @@ INSERT INTO product VALUES ('p2', '6Fix4Flo SWP Exp15Jul2021', 'SWP', 'Interest_
 INSERT INTO product VALUES ('p3', '5Flo4Fix SWP Exp20Jul2021', 'SWP', 'Interest_Rate', '2022-10-05T14:48:00.000Z');
 INSERT INTO product VALUES ('p4', '5Fix6Flo SWP Exp14Jul2021', 'SWP', 'Interest_Rate', '2022-10-05T14:48:00.000Z');
 INSERT INTO product VALUES ('p5', 'AUDUSD SWP Exp15Aug2022', 'SWP', 'Currency', '2022-10-05T14:48:00.000Z');
-INSERT INTO product VALUES ('p6', 'COP', 'OPT', 'Call', '2022-10-05T14:48:00.000Z');
-INSERT INTO product VALUES ('p7', 'POP', 'OPT', 'Put', '2022-10-05T14:48:00.000Z');
+INSERT INTO product VALUES ('p6', '10USD Exp25Aug2022', 'OPT', 'Call', '2022-10-05T14:48:00.000Z');
+INSERT INTO product VALUES ('p7', '10USD Exp26Aug2022', 'OPT', 'Put', '2022-10-05T14:48:00.000Z');
 INSERT INTO product VALUES ('p8', 'AUDNZD FRD Exp14Jul2021', 'FRD', 'Currency', '2022-10-05T14:48:00.000Z');
-INSERT INTO product VALUES ('p9', 'BFU', 'FUT', 'Bond', '2022-10-05T14:48:00.000Z');
+INSERT INTO product VALUES ('p9', '5P FUT Exp26Sep2025', 'FUT', 'Bond', '2022-10-05T14:48:00.000Z');
 INSERT INTO broker_product VALUES ('1', 'b1', 'p1');
 INSERT INTO broker_product VALUES ('2', 'b1', 'p2');
 INSERT INTO broker_product VALUES ('3', 'b1', 'p3');

@@ -79,8 +79,10 @@ components:
       properties:
         productType:
           type: string
+          example: "SWP"
         productSubType:
           type: string
+          example: "Interest_Rate"
         brokerId:
           type: string
         tradeDate:

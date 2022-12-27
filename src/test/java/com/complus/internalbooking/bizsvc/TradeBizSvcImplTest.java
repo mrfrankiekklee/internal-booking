@@ -2,7 +2,6 @@ package com.complus.internalbooking.bizsvc;
 
 import com.complus.internalbooking.config.ErrorConstants;
 import com.complus.internalbooking.repository.BrokerEntityRepository;
-import com.complus.internalbooking.repository.BrokerProductEntityRepository;
 import com.complus.internalbooking.repository.ProductEntityRepository;
 import com.complus.internalbooking.repository.TradeEntityRepository;
 import com.complus.internalbooking.repository.entity.Broker;
@@ -40,8 +39,6 @@ public class TradeBizSvcImplTest {
 
     @Autowired
     private BrokerEntityRepository brokerEntityRepository;
-    @Autowired
-    BrokerProductEntityRepository brokerProductEntityRepository;
     @Mock
     private TradeEntityRepository tradeEntityRepository;
     private AutoCloseable autoCloseable;

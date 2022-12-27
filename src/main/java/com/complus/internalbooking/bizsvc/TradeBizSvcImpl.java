@@ -85,6 +85,7 @@ public class TradeBizSvcImpl implements TradeBizSvc{
 
         String csvName = request.getProductSubType() + "_" +
                 request.getProductType() +
+                request.getBrokerId() +
                 (request.getTradeDate() != null ?
                         "_" + dateFormatter(OffsetDateTime.parse(request.getTradeDate()))
                         : "") + ".csv";

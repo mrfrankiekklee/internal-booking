@@ -1,5 +1,9 @@
 Internal booking application
 -
+Overview
+
+This is an application for user to create trade and generate trade report via API request.
+
 1. - Start the application on your desired IDE (Developed on Intellij) after Maven Reload Project
     - Or Run mvn install and mvn spring-boot:run
     - App starts at http://localhost:8080
@@ -16,7 +20,8 @@ Assumption
 -
 
 - There would be a dropdown / selection for user to select productType, broker and tradeDate.
-- If follows Domain Driven Design, productEntityRepository and brokerEntityRepository should not be in TradeBizSvcImpl.
+- Products, brokers, and their relationship are pre-defined. User cannot modify at this stage, but can be modified by admin.
+- Domain Driven Design is not require, otherwise productEntityRepository and brokerEntityRepository should not be in TradeBizSvcImpl.
 - Assume the user cannot select the time of the trade, so all time stored and query will be the same.
 - Assume storing the product's properties in productName in each trade, and no specific format on them, as long as consistent for each productType. 
 

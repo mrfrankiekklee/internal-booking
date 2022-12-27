@@ -35,12 +35,6 @@ public class CreateTradeRequest   {
   @NotEmpty
   private String brokerId = null;
 
-  @JsonProperty("pairs")
-  private String pairs = null;
-
-  @JsonProperty("expiryDate")
-  private String expiryDate = null;
-
   public CreateTradeRequest productId(String productId) {
     this.productId = productId;
     return this;
@@ -150,43 +144,6 @@ public class CreateTradeRequest   {
     this.brokerId = brokerId;
   }
 
-  public CreateTradeRequest pairs(String pairs) {
-    this.pairs = pairs;
-    return this;
-  }
-
-  /**
-   * Get pairs
-   * @return pairs
-   **/
-
-    public String getPairs() {
-    return pairs;
-  }
-
-  public void setPairs(String pairs) {
-    this.pairs = pairs;
-  }
-
-  public CreateTradeRequest expiryDate(String expiryDate) {
-    this.expiryDate = expiryDate;
-    return this;
-  }
-
-  /**
-   * Get expiryDate
-   * @return expiryDate
-   **/
-
-    public String getExpiryDate() {
-    return expiryDate;
-  }
-
-  public void setExpiryDate(String expiryDate) {
-    this.expiryDate = expiryDate;
-  }
-
-
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -201,14 +158,12 @@ public class CreateTradeRequest   {
         Objects.equals(this.isBuy, createTradeRequest.isBuy) &&
         Objects.equals(this.qty, createTradeRequest.qty) &&
         Objects.equals(this.price, createTradeRequest.price) &&
-        Objects.equals(this.brokerId, createTradeRequest.brokerId) &&
-        Objects.equals(this.pairs, createTradeRequest.pairs) &&
-        Objects.equals(this.expiryDate, createTradeRequest.expiryDate);
+        Objects.equals(this.brokerId, createTradeRequest.brokerId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(productId, tradeDate, isBuy, qty, price, brokerId, pairs, expiryDate);
+    return Objects.hash(productId, tradeDate, isBuy, qty, price, brokerId);
   }
 
   @Override
@@ -222,8 +177,6 @@ public class CreateTradeRequest   {
     sb.append("    qty: ").append(toIndentedString(qty)).append("\n");
     sb.append("    price: ").append(toIndentedString(price)).append("\n");
     sb.append("    brokerId: ").append(toIndentedString(brokerId)).append("\n");
-    sb.append("    pairs: ").append(toIndentedString(pairs)).append("\n");
-    sb.append("    expiryDate: ").append(toIndentedString(expiryDate)).append("\n");
     sb.append("}");
     return sb.toString();
   }

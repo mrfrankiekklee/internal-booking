@@ -13,6 +13,5 @@ import java.util.List;
 public interface TradeEntityRepository extends JpaRepository<Trade,String>, JpaSpecificationExecutor<Trade> {
 
     Trade save(Trade trade);
-
     List<Trade> findAll();
 }

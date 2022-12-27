@@ -1,6 +1,7 @@
 package com.complus.internalbooking.swagger;
 
 import com.complus.internalbooking.bizsvc.TradeBizSvcImpl;
+import com.complus.internalbooking.repository.entity.Trade;
 import com.complus.internalbooking.swagger.modal.CreateTradeRequest;
 import com.complus.internalbooking.swagger.modal.CreateTradeResponse;
 import com.complus.internalbooking.swagger.modal.GenerateReportRequest;
@@ -22,7 +23,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
 
+import javax.persistence.EntityNotFoundException;
 import javax.validation.constraints.*;
 import javax.validation.Valid;
 import javax.servlet.http.HttpServletRequest;
@@ -52,13 +55,16 @@ public class V1ApiController implements V1Api {
     public ResponseEntity<CreateTradeResponse> postCreateTrade(@ApiParam(value = "Body for create trade", required=true) @Valid @RequestBody CreateTradeRequest body) {
         String accept = request.getHeader("Accept");
         try {
-            String tradeId = tradeBizsvcImpl.postCreateTrade(body);
+            Trade trade = tradeBizsvcImpl.postCreateTrade(body);
+            String tradeId = trade.getId();
             CreateTradeResponse createTradeResponse = new CreateTradeResponse();
             createTradeResponse.setTradeId(tradeId);
             return new ResponseEntity<CreateTradeResponse>(createTradeResponse, HttpStatus.OK);
         } catch (ApplicationContextException e) {
             System.out.println(e);
             throw new ApplicationContextException(e.getLocalizedMessage());
+        } catch (EntityNotFoundException e){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getLocalizedMessage());
         }
 
     }

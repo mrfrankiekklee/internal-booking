@@ -3,6 +3,7 @@ package com.complus.internalbooking.repository;
 import com.complus.internalbooking.repository.entity.Broker;
 import com.complus.internalbooking.repository.entity.Product;
 import com.complus.internalbooking.repository.entity.Trade;
+import com.complus.internalbooking.swagger.modal.CreateTradeRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,9 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import javax.persistence.Column;
 import javax.persistence.EntityNotFoundException;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -28,7 +31,7 @@ class TradeEntityRepositoryTest {
     private BrokerEntityRepository brokerEntityRepository;
 
     @BeforeEach
-    void init() {
+    void setUp() {
 
         productEntityRepository.save(new Product(
                 "p1",
@@ -55,6 +58,24 @@ class TradeEntityRepositoryTest {
 
     @Test
     void itShouldCheckIfSave() {
+        Product product = productEntityRepository.findById("p1")
+                .orElseThrow(()-> new EntityNotFoundException("Product Not Found"));
+        Broker broker = brokerEntityRepository.findById("b1")
+                .orElseThrow(()-> new EntityNotFoundException("Broker Not Found"));
+
+        Trade trade1 = new Trade(
+                product,
+                "T-IRS",
+                "2022-12-13T07:00:00.000Z",
+                10000,
+                true,
+                broker,
+                "1.067591"
+        );
+        Trade newTrade = tradeEntityRepository.save(trade1);
+        Optional<Trade> result = tradeEntityRepository.findById(newTrade.getId());
+
+        assertNotNull(result);
     }
 
     @Test
@@ -86,8 +107,10 @@ class TradeEntityRepositoryTest {
         tradeEntityRepository.save(trade1);
         tradeEntityRepository.save(trade2);
 
+        //when
         List<Trade> tradeList = tradeEntityRepository.findAll();
 
+        //then
         assertEquals(2, tradeList.size());
 
     }

@@ -32,18 +32,23 @@ public class TradeBizSvcImpl implements TradeBizSvc{
 
     @Autowired
     private BrokerEntityRepository brokerEntityRepository;
+
+    public TradeBizSvcImpl(TradeEntityRepository tradeEntityRepository, BrokerEntityRepository brokerEntityRepository) {
+        this.tradeEntityRepository = tradeEntityRepository;
+        this.brokerEntityRepository = brokerEntityRepository;
+    }
     @Override
-    public String postCreateTrade(CreateTradeRequest request) {
+    public Trade postCreateTrade(CreateTradeRequest request) throws EntityNotFoundException{
 
         //Check if broker exists
         Broker broker = brokerEntityRepository.findById(request.getBrokerId())
-                .orElseThrow(()-> new EntityNotFoundException("Broker Not Found"));
+                .orElseThrow(()-> new EntityNotFoundException(ErrorConstants.BROKER_NOT_FOUND));
 
         //Check if broker has the product
         BrokerProduct brokerProduct = broker.getBrokerProductSet()
                 .stream().filter(p -> p.getProduct().getId().equals(request.getProductId()))
                 .findAny()
-                .orElseThrow(()-> new EntityNotFoundException("Product does not exist in this Broker"));
+                .orElseThrow(()-> new EntityNotFoundException(ErrorConstants.PRODUCT_NOT_FOUND));
 
         Product product = brokerProduct.getProduct();
 
@@ -59,7 +64,7 @@ public class TradeBizSvcImpl implements TradeBizSvc{
 
         Trade savedTrade = tradeEntityRepository.save(newTrade);
 
-        return savedTrade.getId();
+        return savedTrade;
     }
 
     @Override

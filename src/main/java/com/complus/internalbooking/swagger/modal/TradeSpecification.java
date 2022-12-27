@@ -10,7 +10,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static com.complus.internalbooking.config.Constants.filterCriteriaList;
+import static com.complus.internalbooking.config.Constants.*;
 
 public class TradeSpecification implements Specification<Trade> {
 
@@ -26,22 +26,17 @@ public class TradeSpecification implements Specification<Trade> {
 
         Set<Predicate> predicateList = new HashSet<>();
         for (SearchCriteria criteria : criteriaList) {
-            if(filterCriteriaList.contains(criteria.getKey())) {
+            if(productCriteriaSet.contains(criteria.getKey())){
                 Path productRootPath = root.get("product");
+                predicateList.add(builder.equal(productRootPath.get(criteria.getKey()), criteria.getValue().toString()));
+            } else if (brokerCriteriaSet.contains(criteria.getKey())) {
                 Path brokerRootPath = root.get("broker");
-                switch (criteria.getKey()){
-                    case "type":
-                        predicateList.add(builder.equal(productRootPath.get("type"), criteria.getValue().toString()));
-                        break;
-                    case "subType":
-                        predicateList.add(builder.equal(productRootPath.get("subType"), criteria.getValue().toString()));
-                        break;
-                    case "brokerId":
-                        predicateList.add(builder.equal(brokerRootPath.get("id"), criteria.getValue().toString()));
-                        break;
-                    default:
-                        predicateList.add(builder.equal(root.get(criteria.getKey()), criteria.getValue().toString()));;
-                }
+                predicateList.add(builder.equal(brokerRootPath.get("id"), criteria.getValue().toString()));
+            } else if (criteria.getKey()=="tradeDate") {
+                predicateList.add(builder.equal(root.get("tradeDate"), criteria.getValue().toString()));
+            }
+            else {
+                predicateList.add(builder.equal(root.get(criteria.getKey()), criteria.getValue().toString()));;
             }
         };
 
